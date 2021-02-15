@@ -1,13 +1,12 @@
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+       import java.io.FileInputStream;
+        import java.io.FileNotFoundException;
+       import java.io.PrintWriter;
+       import java.time.LocalDate;
+        import java.time.format.DateTimeFormatter;
+       import java.util.*;
+       import java.util.stream.Collectors;
 
-public class Aufgabe1 {
+       public class Aufgabe1 {
 
     private static class Book{
         private String title;
@@ -32,7 +31,39 @@ public class Aufgabe1 {
 
         public String getAuthor() {
             return author;
-    }
+        }
+
+        public int getAvailable() {
+            return available;
+        }
+
+        public int getTotals() {
+            return totals;
+        }
+
+        public LocalDate getDate() {
+            return date;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setAuthor(String author) {
+            this.author = author;
+        }
+
+        public void setDate(LocalDate date) {
+            this.date = date;
+        }
+
+        public void setTotals(int totals) {
+            this.totals = totals;
+        }
+
+        public void setAvailable(int available) {
+            this.available = available;
+        }
     }
 
     public static void main(String[] args) throws FileNotFoundException {
@@ -41,10 +72,11 @@ public class Aufgabe1 {
         Scanner sc=new Scanner(fis);
         List<Book> books = new ArrayList<Book>();
         List<Book> sortedBooks = new ArrayList<Book>();
+
         while(sc.hasNextLine())
         {
             List<String> line = Arrays.asList(sc.nextLine().split("&"));
-            Book b = new Book();
+            Book b = null;
             b.author = line.get(1);;
             b.totals = Integer.parseInt(line.get(3));
             b.available = Integer.parseInt(line.get(4));
@@ -55,10 +87,38 @@ public class Aufgabe1 {
             LocalDate localDate = LocalDate.parse(line.get(2), formatter);
             b.date = localDate;
             books.add(b);
+            sortedBooks.add(b);
         }
-        sortedBooks = books.sort();
+
+        sortedBooks = books.stream().sorted(Comparator.comparing(Book::getTitle).reversed()).collect(Collectors.toList());
+        PrintWriter printWriter = new PrintWriter("name.txt");
+        sortedBooks.forEach(b -> {
+            printWriter.write(b.getTitle() + "#"
+                    + b.getAuthor() + "#"
+                    + b.getDate().toString() + "#"
+                    + b.getTotals() + "#"
+                    + b.getAvailable());
+            printWriter.write("\n");
+        });
+        List<Book> authorS = new ArrayList<Book>();
+        books.forEach(buch -> {
+            if (buch.getAuthor().charAt(0)=='S')
+                authorS.add(buch);
+        });
+        authorS.stream().sorted(Comparator.comparing(Book::getTitle)).collect(Collectors.toList());
+        PrintWriter printWriterauth = new PrintWriter("autor.txt");
+        authorS.forEach(b -> {
+            printWriter.write(b.getTitle() + "#"
+                    + b.getAuthor() + "#"
+                    + b.getDate().toString() + "#"
+                    + b.getTotals() + "#"
+                    + b.getAvailable());
+            printWriter.write("\n");
+        });
+
+        printWriterauth.close();
+        printWriter.close();
         sc.close();     //closes the scanner
 
     }
 }
-
