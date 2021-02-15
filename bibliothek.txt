@@ -1,0 +1,10 @@
+Pride and Prejudice&Jane Austen&28.01.1813&5&4
+Father Goriot&Honore de Balzac&06.03.1835&2&1
+The Trial&Franz Kafka&26.04.1925&3&2
+A Game of Thrones&George R. R. Martin&01.08.1996&6&2
+The Hunger Games&Suzanne Collins&14.09.2008&4&3
+The Institute&Stephen King&10.09.2019&7&7
+The Fellowship of the Ring&J. R. R. Tolkien&29.07.1954&8&4
+Leaders Eat Last&Simon Sinek&1.06.2014&2&2
+Harry Potter and the Chamber of Secrets&J. K. Rowling&2.07.1998&5&3
+A Doll's House&Henrik Ibsen&21.12.1879&7&5
