@@ -116,9 +116,32 @@
             printWriter.write("\n");
         });
 
+        List<Book> exemplare = new ArrayList<Book>(); // Books with at least 3 copies
+        books.forEach(buch -> {
+            if (buch.getAvailable() == 3 || buch.getAvailable() >3 )
+                exemplare.add(buch);
+        });
+        exemplare.stream().sorted(Comparator.comparing(Book::getDate).reversed()).collect(Collectors.toList());
+        PrintWriter printWriterAvailable = new PrintWriter("exemplare.txt");
+        authorS.forEach(b -> {
+            printWriter.write(b.getTitle() + "#"
+                    + b.getAuthor() + "#"
+                    + b.getDate().toString() + "#"
+                    + b.getTotals() + "#"
+                    + b.getAvailable());
+            printWriter.write("\n");
+        });
+        printWriterAvailable.close();
         printWriterauth.close();
         printWriter.close();
+        int totalBooks = 0;
+        for(Book b : books){
+            totalBooks += b.getTotals();
+        }
+        System.out.println(totalBooks);
         sc.close();     //closes the scanner
+
+
 
     }
 }
